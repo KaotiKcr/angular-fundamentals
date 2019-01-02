@@ -10,6 +10,8 @@ import { IEvent, ISession } from '../shared';
 export class EventDetailsComponent implements OnInit {
   event: IEvent;
   addMode: boolean;
+  filterBy = 'all';
+  sortBy = 'votes';
 
   constructor(private eventService: EventService, private route: ActivatedRoute) {}
 
@@ -28,7 +30,7 @@ export class EventDetailsComponent implements OnInit {
     this.addMode = false;
   }
 
-  cancelAddSession (mode) {
+  cancelAddSession(mode) {
     this.addMode = mode;
   }
 }
