@@ -9,7 +9,7 @@ export class UpvoteComponent {
     iconColor: string;
     @Input() count: number;
     @Input('voted') set voted(value: boolean) {
-        this.iconColor = value ? 'red' : 'white';
+        this.iconColor = value ? 'greenyellow' : 'white';
     }
     @Output() vote = new EventEmitter();
 

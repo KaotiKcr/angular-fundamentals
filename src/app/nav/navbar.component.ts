@@ -4,6 +4,7 @@ import { ISession } from '../events';
 import { EventService } from './../events/shared/event.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalFoundSessionsComponent } from './modal-found-sessions.component';
+import { IEvent } from './../events/shared/event.model';
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +14,7 @@ import { ModalFoundSessionsComponent } from './modal-found-sessions.component';
 export class NavbarComponent implements OnInit {
   searchTerm: '';
   foundSessions: ISession[];
+  events: IEvent[];
 
   constructor(
     public auth: AuthService,
@@ -20,7 +22,11 @@ export class NavbarComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.eventService.getEvents().subscribe(events => {
+      this.events = events;
+    });
+  }
   searchSessions(searchTerm) {
     this.eventService.searchSessions(searchTerm).subscribe(sessions => {
       const modalRef = this.modalService.open(ModalFoundSessionsComponent, { centered: true });

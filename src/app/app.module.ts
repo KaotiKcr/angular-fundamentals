@@ -10,8 +10,8 @@ import {
   EventDetailsComponent,
   CreateEventComponent,
   CreateSessionComponent,
-  EventRouteActivator,
   EventsListResolver,
+  EventResolver,
   SessionListComponent,
   DurationPipe,
   UpvoteComponent,
@@ -35,7 +35,7 @@ import { Error404Component } from './errors/404.component';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { HttpClientModule } from '@angular/common/http';
 
 const toastr: Toastr = window['toastr'];
 // const jQuery = window['$'];
@@ -46,7 +46,8 @@ const toastr: Toastr = window['toastr'];
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    HttpClientModule
   ],
 
   declarations: [
@@ -73,7 +74,7 @@ const toastr: Toastr = window['toastr'];
     EventService,
     { provide: TOASTR_TOKEN, useValue: toastr },
     // { provide: JQ_TOKEN, useValue: jQuery },
-    EventRouteActivator,
+    EventResolver,
     EventsListResolver,
     AuthService,
     VoterService,

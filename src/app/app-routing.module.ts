@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router'
+import { Routes, RouterModule } from '@angular/router';
 
 import {
   EventsListComponent,
   EventDetailsComponent,
   CreateEventComponent,
-  EventRouteActivator,
+  EventResolver,
   EventsListResolver,
   CreateSessionComponent
 } from './events/index';
@@ -18,7 +18,7 @@ const routes: Routes = [
     canDeactivate: ['canDeactivateCreateEvent']
   },
   { path: 'events', component: EventsListComponent, resolve: {events: EventsListResolver} },
-  { path: 'events/:id', component: EventDetailsComponent, canActivate: [EventRouteActivator] },
+  { path: 'events/:id', component: EventDetailsComponent, resolve: {event: EventResolver} },
   { path: 'events/session/new', component: CreateSessionComponent },
   { path: '404', component: Error404Component },
   { path: '', redirectTo: '/events', pathMatch: 'full' },
