@@ -23,12 +23,27 @@ button {
 .toast-success {
   background-color: #51a351;
 }
+
 .toast-error {
   background-color: #bd362f;
 }
+
 .toast-info {
   background-color: #2f96b4;
 }
+
 .toast-warning {
   background-color: #f89406;
+}
+
+.modal-backdrop.fade {
+  opacity: 0.5;
+}
+
+.modal-open .modal {
+  opacity: 1;
+}
+
+.modal-dialog {
+  margin-top: 125px;
 }
