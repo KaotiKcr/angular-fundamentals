@@ -13,7 +13,10 @@ import {
   EventRouteActivator,
   EventsListResolver,
   SessionListComponent,
-  DurationPipe
+  DurationPipe,
+  UpvoteComponent,
+  VoterService,
+  LocationValidator
 } from './events/index';
 
 import {
@@ -60,7 +63,9 @@ const toastr: Toastr = window['toastr'];
     DurationPipe,
     ModalComponent,
     FoundSessionsComponent,
-    ModalFoundSessionsComponent
+    ModalFoundSessionsComponent,
+    UpvoteComponent,
+    LocationValidator
 
   ],
 
@@ -71,6 +76,7 @@ const toastr: Toastr = window['toastr'];
     EventRouteActivator,
     EventsListResolver,
     AuthService,
+    VoterService,
     { provide: 'canDeactivateCreateEvent', useValue: checkDirtyState },
     NgbActiveModal
   ],
