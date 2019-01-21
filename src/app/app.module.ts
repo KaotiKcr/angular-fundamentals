@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -32,17 +32,23 @@ import { FoundSessionsComponent } from './nav/found-sessions.component';
 import { ModalFoundSessionsComponent } from './nav/modal-found-sessions.component';
 
 import { Error404Component } from './errors/404.component';
+import { ErrorsComponent } from './errors/errors.component';
+import { ErrorsHandler } from './errors/errors-handler';
+import { ServerErrorInterceptor } from './errors/server-error.interceptor';
+import { ErrorsService } from './errors/errors.service';
+
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 const toastr: Toastr = window['toastr'];
 // const jQuery = window['$'];
 
 @NgModule({
   imports: [
-    BrowserModule,
+
+BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -52,6 +58,7 @@ const toastr: Toastr = window['toastr'];
 
   declarations: [
     AppComponent,
+    ErrorsComponent,
     NavbarComponent,
     CreateEventComponent,
     CreateSessionComponent,
@@ -67,13 +74,22 @@ const toastr: Toastr = window['toastr'];
     ModalFoundSessionsComponent,
     UpvoteComponent,
     LocationValidator
-
   ],
 
   providers: [
     EventService,
+    {
+      provide: ErrorHandler,
+      useClass: ErrorsHandler,
+    },
+    ErrorsService,
     { provide: TOASTR_TOKEN, useValue: toastr },
     // { provide: JQ_TOKEN, useValue: jQuery },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServerErrorInterceptor,
+      multi: true
+    },
     EventResolver,
     EventsListResolver,
     AuthService,

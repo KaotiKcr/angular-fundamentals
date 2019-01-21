@@ -1,41 +1,29 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { Subject, Observable, of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable} from 'rxjs';
 import { IEvent, ISession } from './event.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class EventService {
   constructor(private http: HttpClient) {}
   getEvents(): Observable<IEvent[]> {
     return this.http
-      .get<IEvent[]>('/api/events')
-      .pipe(catchError(this.handleError<IEvent[]>('getEvents', [])));
+      .get<IEvent[]>('/api/events');
   }
 
   getEvent(id: number): Observable<IEvent> {
     return this.http
-      .get<IEvent>('/api/events/' + id)
-      .pipe(catchError(this.handleError<IEvent>('getEvent', [])));
+      .get<IEvent>('/api/events/' + id);
   }
 
   saveEvent(event) {
     const options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http
-      .post<IEvent>('/api/events', event, options)
-      .pipe(catchError(this.handleError<IEvent>('saveEvent', [])));
+      .post<IEvent>('/api/events', event, options);
   }
 
   searchSessions(searchTerm: string): Observable<ISession[]> {
     return this.http
-      .get<ISession[]>('/api/sessions/search?search=' + searchTerm)
-      .pipe(catchError(this.handleError<ISession[]>('searchSessions', [])));
-  }
-
-  handleError<T>(operation = 'operation', result?: any) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
+      .get<ISession[]>('/api/sessions/search?search=' + searchTerm);
   }
 }

@@ -10,6 +10,7 @@ import {
   CreateSessionComponent
 } from './events/index';
 import { Error404Component } from './errors/404.component';
+import { ErrorsComponent } from './errors/errors.component';
 
 const routes: Routes = [
   {
@@ -21,12 +22,13 @@ const routes: Routes = [
   { path: 'events/:id', component: EventDetailsComponent, resolve: {event: EventResolver} },
   { path: 'events/session/new', component: CreateSessionComponent },
   { path: '404', component: Error404Component },
+  { path: 'error', component: ErrorsComponent },
   { path: '', redirectTo: '/events', pathMatch: 'full' },
   { path: 'user', loadChildren: './user/user.module#UserModule'}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+exports: [RouterModule]
 })
 export class AppRoutingModule {}
